@@ -12,7 +12,16 @@
       $(document).ready(function() {
 
         // Load all red and black boards
-        
+        var db = document.URL.split("/")[3]
+        $.getJSON("/" + db + '/_all_docs?include_docs=true', function(data) {
+          console.log(data)
+          $.each(data.rows, function (i, row) {
+            if (row.doc.color) {
+              $("." + row.doc._id).css("background", row.doc.color)
+            }
+          })
+
+        })
 
 
         $(".a-color").click(function() {
