@@ -1,2 +1,3 @@
-
 Good times, great oldies. I wonder if I'm still as good as I remember being at this game...
+
+![Screenshot of Connect Four Boards](https://raw.github.com/rjsteinert/Connect-Four-Boards/master/screenshot.png)
