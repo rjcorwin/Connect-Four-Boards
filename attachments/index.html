@@ -6,9 +6,14 @@
     <title>Connect Some</title>
 
     <script language="javascript" type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <script src="/_utils/script/jquery.couch.js?0.11.0"></script>
 
     <script Content-Type="text/javascript">
       $(document).ready(function() {
+
+        // Load all red and black boards
+        
+
 
         $(".a-color").click(function() {
           var myColor = $(this).text()
@@ -17,11 +22,32 @@
         })
 
         $("td").click(function() {
+          var db = document.URL.split("/")[3]
           var myColor = $(".my-color").attr("value")
           if (myColor == "a-color black") {
+            var boardCell = $(this).attr("class")
+            $.couch.db(db).openDoc(boardCell, {
+              success: function(couchDoc) {
+                couchDoc.color = "black"
+                $.couch.db(db).saveDoc(couchDoc)
+              },
+              error: function(error) {
+                $.couch.db(db).saveDoc({ _id: boardCell, color:"black"})
+              }
+            })
             $(this).css("background", "black")
           }
           if (myColor == "a-color red") {
+            var boardCell = $(this).attr("class")
+            $.couch.db(db).openDoc(boardCell, {
+              success: function(couchDoc) {
+                couchDoc.color = "red"
+                $.couch.db(db).saveDoc(couchDoc)
+              },
+              error: function(error) {
+                $.couch.db(db).saveDoc({ _id: boardCell, color:"red"})
+              }
+            })
             $(this).css("background", "red")
           }
         })  
@@ -108,6 +134,7 @@
     <div class="color-selection">
       <div class="my-color">Which color are you?</div>
       <span class="a-color red">RED</span><span> --- </span><span class="a-color black">BLACK</div>
+      <div class="help-text">Click either color and then choose a square.</div>
     </div>
 
   </body>
