@@ -22,6 +22,17 @@
           })
 
         })
+        $(".clear-board").click(function() {
+          $.getJSON("/" + db + '/_all_docs?include_docs=true', function(data) {
+            $.each(data.rows, function (i, row) {
+              if (row.doc.color) {
+                $("." + row.doc._id).css("background", "white")
+                $.couch.db(db).removeDoc(row.doc)
+              }
+            })
+          })
+
+        })
 
 
         $(".a-color").click(function() {
@@ -142,8 +153,9 @@
 
     <div class="color-selection">
       <div class="my-color">Which color are you?</div>
-      <span class="a-color red">RED</span><span> --- </span><span class="a-color black">BLACK</div>
+      <span class="a-color red">RED</span><span> --- </span><span class="a-color black">BLACK</span>
       <div class="help-text">Click either color and then choose a square.</div>
+      <div class="clear-board">Click here to clear the board</div>
     </div>
 
   </body>
