@@ -18,7 +18,14 @@
         $(".a-color").click(function() {
           var myColor = $(this).text()
           $(".my-color").text("Your color is " + myColor)
+          $(".my-color").attr("value", $(this).attr("class"))
         })
+        $("td").click(function() {
+          var myColor = $(".my-color").attr("value")
+          if (myColor == "a-color black") {
+            $(this).css("background", "black")
+          }
+        })  
       })
     </script>
   </head>
@@ -26,7 +33,7 @@
   <body>
 
   <style type="text/css">
-    .cell-1x1 { background: #000; }
+    
     td {margin: 3px;
 
       border: solid 2px #000  ;
